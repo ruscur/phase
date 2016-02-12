@@ -21,7 +21,7 @@ fn main() {
         .build()
         .unwrap_or_else(|err| panic!("Couldn't make a window: {}", err));
 
-    let mut renderer = window.renderer().build().unwrap();
+    let mut renderer = window.renderer().accelerated().build().unwrap();
     let texture = renderer.load_texture(
         &Path::new("/home/ruscur/Documents/phase/assets/png/hello.png"))
         .unwrap_or_else(|err| panic!("Failed to open texture: {}", err));
@@ -45,7 +45,11 @@ fn main() {
                 } => {
                     break 'running
                 },
-                _ => {}
+                _ => {
+                    renderer.clear();
+                    renderer.copy(&texture, None, rect);
+                    renderer.present();
+                }
             }
         }
     }
