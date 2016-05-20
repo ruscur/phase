@@ -16,5 +16,7 @@ There are a few base rules:
    change and maybe I can get some third-party participation.
  - It's called phase because I like the word and it keeps coming up in
    my dreams.
-   
+
+I've tested this on x86_64 Linux and Windows.  Windows was a bit of a pain, see the Windows instructions for rust-sdl2 for details.
+
 Licensed GPLv2 or later!
