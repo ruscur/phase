@@ -27,11 +27,11 @@ fn main() {
 
     let mut renderer = window.renderer().accelerated().build().unwrap();
     let texture = renderer.load_texture(
-        &Path::new("/home/ruscur/Documents/phase/assets/png/hello.png"))
+        &Path::new("assets/png/hello.png"))
         .unwrap_or_else(|err| panic!("Failed to open texture: {}", err));
-    let image_rect = Rect::new(0, 0, SCREEN_WIDTH - 300, SCREEN_HEIGHT - 200).unwrap();
+    let image_rect = Rect::new(0, 0, SCREEN_WIDTH - 300, SCREEN_HEIGHT - 200);
     let red_rect = Rect::new((SCREEN_WIDTH/4) as i32, (SCREEN_HEIGHT/4) as i32,
-                             SCREEN_WIDTH/2, SCREEN_HEIGHT/2).unwrap().unwrap();
+                             SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
 
     let mut event_pump = sdl_context.event_pump()
         .unwrap_or_else(|err| panic!("Couldn't get event pump: {}", err));
@@ -49,15 +49,16 @@ fn main() {
                 _ => {
                     renderer.set_draw_color(WHITE);
                     renderer.clear();
-                    renderer.copy(&texture, None, image_rect);
+                    renderer.copy(&texture, None, Some(image_rect));
                     renderer.set_draw_color(RED);
-                    renderer.fill_rect(red_rect);
+                    renderer.fill_rect(red_rect).unwrap();
+
                     renderer.set_draw_color(BLUE);
                     renderer.draw_line(Point::new(0, (SCREEN_HEIGHT/2) as i32),
-                                       Point::new(SCREEN_WIDTH as i32, (SCREEN_HEIGHT/2) as i32));
+                                       Point::new(SCREEN_WIDTH as i32, (SCREEN_HEIGHT/2) as i32)).unwrap();
                     renderer.set_draw_color(GREEN);
                     for i in 0..SCREEN_HEIGHT {
-                        renderer.draw_point(Point::new((SCREEN_WIDTH/2) as i32, (i*4) as i32));
+                        renderer.draw_point(Point::new((SCREEN_WIDTH/2) as i32, (i*4) as i32)).unwrap();
                     }
                     renderer.present();
                 }
