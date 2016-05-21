@@ -29,6 +29,7 @@ fn main() {
     let mut r = 255u8;
     let mut g = 255u8;
     let mut b = 255u8;
+    let mut a = 255u8;
 
     'running : loop { for event in event_pump.poll_iter() {
         match event {
@@ -74,10 +75,23 @@ fn main() {
                 if b > 223 { b = 255; }
                 else { b += 32 };
             },
+            Event::KeyDown {
+                keycode: Some(Keycode::Z), ..
+            } => {
+                if a > 223 { a = 255; }
+                else { a += 32 };
+            },
+            Event::KeyDown {
+                keycode: Some(Keycode::X), ..
+            } => {
+                if a < 32 { a = 0; }
+                else { a -= 32 };
+            },
             _ => { }
         }
         renderer.clear();
         texture.set_color_mod(r, g, b);
+        texture.set_alpha_mod(a);
         renderer.copy(&texture, None, None);
 
         renderer.present();
