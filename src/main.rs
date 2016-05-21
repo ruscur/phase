@@ -36,33 +36,30 @@ fn main() {
     let mut event_pump = sdl_context.event_pump()
         .unwrap_or_else(|err| panic!("Couldn't get event pump: {}", err));
 
-    'running : loop {
-        for event in event_pump.poll_iter() {
-            match event {
-                Event::Quit {..} |
-                Event::KeyDown {
-                    keycode: Some(Keycode::Escape),
-                    ..
-                } => {
-                    break 'running
-                },
-                _ => {
-                    renderer.set_draw_color(WHITE);
-                    renderer.clear();
-                    renderer.copy(&texture, None, Some(image_rect));
-                    renderer.set_draw_color(RED);
-                    renderer.fill_rect(red_rect).unwrap();
-
-                    renderer.set_draw_color(BLUE);
-                    renderer.draw_line(Point::new(0, (SCREEN_HEIGHT/2) as i32),
-                                       Point::new(SCREEN_WIDTH as i32, (SCREEN_HEIGHT/2) as i32)).unwrap();
-                    renderer.set_draw_color(GREEN);
-                    for i in 0..SCREEN_HEIGHT {
-                        renderer.draw_point(Point::new((SCREEN_WIDTH/2) as i32, (i*4) as i32)).unwrap();
-                    }
-                    renderer.present();
-                }
+    'running : loop { for event in event_pump.poll_iter() { match event {
+        Event::Quit {..} |
+        Event::KeyDown {
+            keycode: Some(Keycode::Escape),
+            ..
+        } => {
+            break 'running
+        },
+        _ => {
+            renderer.set_draw_color(WHITE);
+            renderer.clear();
+            renderer.copy(&texture, None, Some(image_rect));
+            renderer.set_draw_color(RED);
+            renderer.fill_rect(red_rect).unwrap();
+            renderer.set_draw_color(BLUE);
+            renderer.draw_line(Point::new(0, (SCREEN_HEIGHT/2) as i32),
+                Point::new(SCREEN_WIDTH as i32,
+                    (SCREEN_HEIGHT/2) as i32)).unwrap();
+            renderer.set_draw_color(GREEN);
+            for i in 0..SCREEN_HEIGHT {
+                renderer.draw_point(
+                    Point::new((SCREEN_WIDTH/2) as i32, (i*4) as i32)).unwrap();
             }
+            renderer.present();
         }
-    }
+    }}}
 }
