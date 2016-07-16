@@ -4,5 +4,5 @@ version = "0.1.0"
 authors = ["Russell Currey <ruscur@russell.cc>"]
 
 [dependencies]
-sdl2 = "0.19" #this can't be newer than the version sdl2_image uses
-sdl2_image = "0.19"
+sdl2 = "0.21" #this can't be newer than the version sdl2_image uses
+sdl2_image = "0.21"
