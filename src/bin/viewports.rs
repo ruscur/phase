@@ -1,5 +1,7 @@
 extern crate sdl2;
 extern crate sdl2_image;
+#[macro_use]
+extern crate phase;
 
 use sdl2::event::Event;
 use sdl2::keyboard::Keycode;
@@ -27,9 +29,11 @@ fn main() {
     let mut event_pump = sdl_context.event_pump()
         .unwrap_or_else(|err| panic!("Couldn't get event pump: {}", err));
 
-    let top_left_viewport = Rect::new(0, 0, SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
-    let top_right_viewport = Rect::new((SCREEN_WIDTH/2) as i32, 0, SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
-    let bottom_viewport = Rect::new(0, (SCREEN_HEIGHT/2) as i32, SCREEN_WIDTH, SCREEN_HEIGHT/2);
+    let top_left_viewport = rect!(0, 0, SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
+    let top_right_viewport = rect!(SCREEN_WIDTH/2, 0,
+                                   SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
+    let bottom_viewport = rect!(0, SCREEN_HEIGHT/2,
+                                SCREEN_WIDTH, SCREEN_HEIGHT/2);
 
     'running : loop {
         for event in event_pump.poll_iter() {
@@ -56,4 +60,3 @@ fn main() {
         }
     }
 }
-

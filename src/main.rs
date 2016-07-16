@@ -9,6 +9,9 @@ use sdl2_image::LoadTexture;
 
 use std::path::Path;
 
+#[macro_use]
+mod utils;
+
 const SCREEN_WIDTH: u32 = 800;
 const SCREEN_HEIGHT: u32 = 600;
 const WHITE: Color = Color::RGB(255, 255, 255);
@@ -29,9 +32,9 @@ fn main() {
     let texture = renderer.load_texture(
         &Path::new("assets/png/hello.png"))
         .unwrap_or_else(|err| panic!("Failed to open texture: {}", err));
-    let image_rect = Rect::new(0, 0, SCREEN_WIDTH - 300, SCREEN_HEIGHT - 200);
-    let red_rect = Rect::new((SCREEN_WIDTH/4) as i32, (SCREEN_HEIGHT/4) as i32,
-                             SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
+    let image_rect = rect!(0, 0, SCREEN_WIDTH - 300, SCREEN_HEIGHT - 200);
+    let red_rect = rect!(SCREEN_WIDTH/4, SCREEN_HEIGHT/4,
+                         SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
 
     let mut event_pump = sdl_context.event_pump()
         .unwrap_or_else(|err| panic!("Couldn't get event pump: {}", err));
@@ -51,13 +54,12 @@ fn main() {
             renderer.set_draw_color(RED);
             renderer.fill_rect(red_rect).unwrap();
             renderer.set_draw_color(BLUE);
-            renderer.draw_line(Point::new(0, (SCREEN_HEIGHT/2) as i32),
-                Point::new(SCREEN_WIDTH as i32,
-                    (SCREEN_HEIGHT/2) as i32)).unwrap();
+            renderer.draw_line(point!(0, SCREEN_HEIGHT/2),
+                               point!(SCREEN_WIDTH, SCREEN_HEIGHT/2))
+                               .unwrap();
             renderer.set_draw_color(GREEN);
             for i in 0..SCREEN_HEIGHT {
-                renderer.draw_point(
-                    Point::new((SCREEN_WIDTH/2) as i32, (i*4) as i32)).unwrap();
+                renderer.draw_point(point!(SCREEN_WIDTH/2, i*4)).unwrap();
             }
             renderer.present();
         }

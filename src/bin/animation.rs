@@ -1,5 +1,7 @@
 extern crate sdl2;
 extern crate sdl2_image;
+#[macro_use]
+extern crate phase;
 
 use sdl2::event::Event;
 use sdl2::keyboard::Keycode;
@@ -37,10 +39,10 @@ fn main() {
         .unwrap_or_else(|err| panic!("Couldn't get event pump: {}", err));
 
     let frames: Vec<Rect> = vec!(
-        Rect::new(0, 0, 64, 205),
-        Rect::new(64, 0, 64, 205),
-        Rect::new(128, 0, 64, 205),
-        Rect::new(196, 0, 64, 205));
+        rect!(0, 0, 64, 205),
+        rect!(64, 0, 64, 205),
+        rect!(128, 0, 64, 205),
+        rect!(196, 0, 64, 205));
 
     let mut frame_count = 0;
 
